@@ -35,15 +35,17 @@
     "types": "./build/export-to-csv.d.ts",
     "homepage": "https://github.com/alexcaza/export-to-csv#readme",
     "devDependencies": {
-        "@types/jasmine": "^2.5.46",
-        "es6-shim": "^0.35.3",
-        "jasmine-core": "^2.4.1",
-        "karma": "^1.5.0",
-        "karma-chrome-launcher": "^2.0.0",
-        "karma-jasmine": "^1.0.2",
+        "@types/jasmine": "^3.7.7",
+        "es6-shim": "^0.35.6",
+        "jasmine-core": "^3.7.1",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-jasmine": "^4.0.1",
         "karma-phantomjs-launcher": "^1.0.4",
-        "karma-sourcemap-loader": "^0.3.7",
-        "karma-typescript": "^5.0.3",
+        "karma-sourcemap-loader": "^0.3.8",
+        "karma-typescript": "^5.5.1",
         "typescript": "~2.4.0"
+    },
+    "dependencies": {
+        "karma": "^6.3.3"
     }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Options {
     filename?: string;
     fieldSeparator?: string;
@@ -49,7 +51,6 @@ export const ConfigDefaults: Options = {
 };
 export class ExportToCsv {
 
-
     private _data: any[];
     private _options: Options;
     private _csv = "";
@@ -63,7 +64,7 @@ export class ExportToCsv {
     }
 
     constructor(options?: Options) {
-        let config = options || {};
+        const config = options || {};
 
         this._options = objectAssign({}, ConfigDefaults, config);
 
@@ -79,7 +80,7 @@ export class ExportToCsv {
     /**
      * Generate and Download Csv
      */
-    generateCsv(jsonData: any, shouldReturnCsv: boolean = false): void | any {
+    generateCsv(jsonData: any, shouldReturnCsv = false): void | any {
 
         // Make sure to reset csv data on each run
         this._csv = '';
@@ -112,15 +113,15 @@ export class ExportToCsv {
         // consumer doesn't set the shouldReturnCsv param
         const FileType = this._options.useTextFile ? 'plain' : 'csv';
         const fileExtension = this._options.useTextFile ? '.txt' : '.csv';
-        let blob = new Blob([this._csv], { "type": "text/" + FileType + ";charset=utf8;" });
+        const blob = new Blob([this._csv], { "type": "text/" + FileType + ";charset=utf8;" });
 
         if (navigator.msSaveBlob) {
-            let filename = this._options.filename.replace(/ /g, "_") + fileExtension;
+            const filename = this._options.filename.replace(/ /g, "_") + fileExtension;
             navigator.msSaveBlob(blob, filename);
         } else {
-            const attachmentType = this._options.useTextFile ? 'text' : 'csv';
-            let uri = 'data:attachment/'+ attachmentType +';charset=utf-8,' + encodeURI(this._csv);
-            let link = document.createElement("a");
+            // const attachmentType = this._options.useTextFile ? 'text' : 'csv';
+            // const uri = 'data:attachment/'+ attachmentType +';charset=utf-8,' + encodeURI(this._csv);
+            const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
 
             link.setAttribute('visibility', 'hidden');
@@ -157,7 +158,7 @@ export class ExportToCsv {
      */
     private _getBody() {
         const keys = Object.keys(this._data[0]);
-        for (var i = 0; i < this._data.length; i++) {
+        for (let i = 0; i < this._data.length; i++) {
             let row = "";
             for (let keyPos = 0; keyPos < keys.length; keyPos++) {
                 const key = keys[keyPos];
@@ -221,8 +222,8 @@ export class ExportToCsv {
     }
 }
 
-let hasOwnProperty = Object.prototype.hasOwnProperty;
-let propIsEnumerable = Object.prototype.propertyIsEnumerable;
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+const propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
 /**
  * Convet to Object
@@ -241,13 +242,13 @@ function toObject(val: any) {
  */
 function objectAssign(target: any, ...source: any[]) {
     let from: any;
-    let to = toObject(target);
+    const to = toObject(target);
     let symbols: any;
 
-    for (var s = 1; s < arguments.length; s++) {
-        from = Object(arguments[s]);
+    for (let s = 1; s < source.length; s++) {
+        from = Object(source[s]);
 
-        for (var key in from) {
+        for (const key in from) {
             if (hasOwnProperty.call(from, key)) {
                 to[key] = from[key];
             }
@@ -255,7 +256,7 @@ function objectAssign(target: any, ...source: any[]) {
 
         if ((<any>Object).getOwnPropertySymbols) {
             symbols = (<any>Object).getOwnPropertySymbols(from);
-            for (var i = 0; i < symbols.length; i++) {
+            for (let i = 0; i < symbols.length; i++) {
                 if (propIsEnumerable.call(from, symbols[i])) {
                     to[symbols[i]] = from[symbols[i]];
                 }
