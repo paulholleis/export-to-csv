@@ -115,9 +115,9 @@ export class ExportToCsv {
         const fileExtension = this._options.useTextFile ? '.txt' : '.csv';
         const blob = new Blob([this._csv], { "type": "text/" + FileType + ";charset=utf8;" });
 
-        if (navigator.msSaveBlob) {
+        if ((navigator as any)['msSaveBlob']) {
             const filename = this._options.filename.replace(/ /g, "_") + fileExtension;
-            navigator.msSaveBlob(blob, filename);
+            (navigator as any)['msSaveBlob'](blob, filename);
         } else {
             // const attachmentType = this._options.useTextFile ? 'text' : 'csv';
             // const uri = 'data:attachment/'+ attachmentType +';charset=utf-8,' + encodeURI(this._csv);
