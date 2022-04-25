@@ -216,7 +216,7 @@ export class ExportToCsv {
      * @memberof ExportToCsv
      */
     private _parseData(jsonData: any): any[] {
-        this._data = typeof jsonData != 'object' ? JSON.parse(jsonData) : jsonData;
+        this._data = typeof jsonData !== 'object' ? JSON.parse(jsonData) : jsonData;
 
         return this._data;
     }
