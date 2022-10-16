@@ -98,7 +98,7 @@ export class ExportToCsv {
         this._getHeaders();
         this._getBody();
 
-        if (this._csv == '') {
+        if (this._csv === '') {
             console.log("Invalid data");
             return;
         }
