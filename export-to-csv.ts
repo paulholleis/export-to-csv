@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+ 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Options {
     filename?: string;
@@ -145,8 +145,8 @@ export class ExportToCsv {
 
         if (headers.length > 0) {
             let row = "";
-            for (let keyPos = 0; keyPos < headers.length; keyPos++) {
-                row += headers[keyPos] + this._options.fieldSeparator;
+            for (const hd of headers) {
+                row += hd + this._options.fieldSeparator;
             }
 
             row = row.slice(0, -1);
@@ -158,11 +158,10 @@ export class ExportToCsv {
      */
     private _getBody() {
         const keys = Object.keys(this._data[0]);
-        for (let i = 0; i < this._data.length; i++) {
+        for (const data of this._data) {
             let row = "";
-            for (let keyPos = 0; keyPos < keys.length; keyPos++) {
-                const key = keys[keyPos];
-                row += this._formatData(this._data[i][key]) + this._options.fieldSeparator;
+            for (const key of keys) {
+                row += this._formatData(data[key]) + this._options.fieldSeparator;
             }
 
             row = row.slice(0, -1);
@@ -254,11 +253,11 @@ function objectAssign(target: any, ...source: any[]) {
             }
         }
 
-        if ((<any>Object).getOwnPropertySymbols) {
-            symbols = (<any>Object).getOwnPropertySymbols(from);
-            for (let i = 0; i < symbols.length; i++) {
-                if (propIsEnumerable.call(from, symbols[i])) {
-                    to[symbols[i]] = from[symbols[i]];
+        if ((Object as any).getOwnPropertySymbols) {
+            symbols = (Object as any).getOwnPropertySymbols(from);
+            for (const symbol of symbols) {
+                if (propIsEnumerable.call(from, symbol)) {
+                    to[symbol] = from[symbol];
                 }
             }
         }
